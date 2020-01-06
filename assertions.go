@@ -30,8 +30,9 @@ func AssertErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) {
 	ex := verrors.FromError(expectedErr)
 	if verr.ErrorType() != ex.ErrorType() {
 		t.Errorf(
-			"\nExpected\t:\t%s\t(%s)\n" +
-			"Actual\t:\t%s\t(%s)",
+			"%10s: %10s (%s)\n" +
+			"%10s: %10s (%s)",
+			"Expected", "Actual",
 			ex.ErrorType().String(), ex.Error(),
 			verr.ErrorType().String(), verr.Error())
 		return
