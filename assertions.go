@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func AssertErrorTypeMatches(t *testing.T, expectedType verrors.ErrorType, actualErr error) {
+func AssertErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualErr error) {
 	if actualErr == nil {
 		t.Errorf("Expected %s error but got nil", expectedType.String())
 		return
