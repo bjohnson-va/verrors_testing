@@ -16,8 +16,8 @@ var (
 	//
 	// You can delete or edit masks to build your own configuration:
 	//
-	// delete(util.DefaultErrorMask, util.AlreadyExists)
-	// util.DefaultErrorMask[util.Unimplemented] = "🚧 Under construction 🚧"
+	// delete(verrors.DefaultErrorMask, verrors.AlreadyExists)
+	// verrors.DefaultErrorMask[util.Unimplemented] = "🚧 Under construction 🚧"
 	DefaultErrorMask = map[ErrorType]string{
 		Unknown:           "Something went wrong",
 		Internal:          "Internal Server Error",
@@ -41,7 +41,7 @@ var (
 // errors of that type into GRPC errors.
 // See DefaultErrorMask for an example configuration
 // Usage:
-// grpcServer := serverconfig.CreateGrpcServer(util.ErrorConverterServerInterceptor(DefaultErrorMask))
+// grpcServer := serverconfig.CreateGrpcServer(verrors.ErrorConverterServerInterceptor(DefaultErrorMask))
 func ErrorConverterServerInterceptor(maskErrorsMap map[ErrorType]string,
 ) func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {
 	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (interface{}, error) {

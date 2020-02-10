@@ -88,6 +88,13 @@ func FromErrorWithContext(ctx context.Context, err error) ServiceError {
 
 // FromError given an error tries to return a proper ServiceError.
 func FromError(err error) ServiceError {
+	if err == context.Canceled {
+		err = New(Canceled, err.Error())
+	}
+	if err == context.DeadlineExceeded {
+		err = New(DeadlineExceeded, err.Error())
+	}
+
 	statusErr, ok := status.FromError(err)
 	if ok {
 		return New(GRPCCodeToErrorType(statusErr.Code()), statusErr.Message())
