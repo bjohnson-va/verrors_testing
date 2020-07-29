@@ -14,14 +14,15 @@ func RandomVError() verrors.ServiceError {
 }
 
 func RandomVErrorExcept(not ...verrors.ErrorType) verrors.ServiceError {
-	for {
-		// TODO: There's almost certainly a way to do this that doesn't involve an infinite loop of retries
-		err := RandomVError()
-		for _, e := range not {
-			if err.ErrorType() == e {
-				continue
+	Choose:
+		for {
+			// TODO: There's almost certainly a way to do this that doesn't involve an infinite loop of retries
+			err := RandomVError()
+			for _, e := range not {
+				if err.ErrorType() == e {
+					continue Choose
+				}
 			}
+			return err
 		}
-		return err
-	}
 }
