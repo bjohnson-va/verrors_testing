@@ -7,14 +7,14 @@ import (
 	"github.com/vendasta/gosdks/verrors"
 )
 
-func ErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualErr error) {
-	verrors_testing.AssertErrorTypeEqual(t, expectedType, actualErr)
+func ErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualErr error) bool {
+	return verrors_testing.AssertErrorTypeEqual(t, expectedType, actualErr)
 }
 
-func ErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) {
-	verrors_testing.AssertErrorTypesMatch(t, expectedErr, actualErr)
+func ErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) bool {
+	return verrors_testing.AssertErrorTypesMatch(t, expectedErr, actualErr)
 }
 
-func NoError(t *testing.T, actualErr error) {
-	verrors_testing.AssertVErrorIsNil(t, actualErr)
+func NoError(t *testing.T, actualErr error) bool {
+	return verrors_testing.AssertVErrorIsNil(t, actualErr)
 }
