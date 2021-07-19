@@ -1,3 +1,4 @@
+// Deprecated: Use verrors_assert
 package verrors_testing
 
 import (
