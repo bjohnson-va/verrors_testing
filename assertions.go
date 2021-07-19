@@ -1,8 +1,9 @@
 package verrors_testing
 
 import (
-	"github.com/vendasta/gosdks/verrors"
 	"testing"
+
+	"github.com/vendasta/gosdks/verrors"
 )
 
 func AssertErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualErr error) {
@@ -18,6 +19,9 @@ func AssertErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualEr
 }
 
 func AssertErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) {
+	if actualErr == nil && expectedErr == nil {
+		return
+	}
 	if actualErr == nil && expectedErr != nil {
 		t.Errorf("Expected %s error but got nil", expectedErr.Error())
 		return
