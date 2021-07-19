@@ -55,7 +55,7 @@ func AssertVErrorIsNil(t *testing.T, actualErr error) bool {
 	Fail(
 		t, fmt.Sprintf(
 			`Expected nil but got:
-%s ["%s", "%s"]`,
+{type: %s, msg: "%s", internalMsg: "%s"}`,
 			verr.ErrorType().String(), verr.Error(), verr.GetInternalMessage(),
 		),
 	)
