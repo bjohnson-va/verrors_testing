@@ -1,53 +1,63 @@
+// Deprecated: Use verrors_assert
 package verrors_testing
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/vendasta/gosdks/verrors"
 )
 
-func AssertErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualErr error) {
+func AssertErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualErr error) bool {
 	if actualErr == nil {
 		t.Errorf("Expected %s error but got nil", expectedType.String())
-		return
+		return false
 	}
 	verr := verrors.FromError(actualErr)
 	if verr.ErrorType() != expectedType {
 		t.Errorf("Expected %s but got %s (%s)", expectedType.String(), verr.ErrorType().String(), verr.Error())
-		return
+		return false
 	}
+	return true
 }
 
-func AssertErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) {
+func AssertErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) bool {
 	if actualErr == nil && expectedErr == nil {
-		return
+		return false
 	}
 	if actualErr == nil && expectedErr != nil {
 		t.Errorf("Expected %s error but got nil", expectedErr.Error())
-		return
+		return false
 	}
 	if actualErr != nil && expectedErr == nil {
 		t.Errorf("Expected nil error but got %s", actualErr.Error())
-		return
+		return false
 	}
 	verr := verrors.FromError(actualErr)
 	ex := verrors.FromError(expectedErr)
 	if verr.ErrorType() != ex.ErrorType() {
 		t.Errorf(
-			"\n%10s: %20s (%s)\n" +
-			"%10s: %20s (%s)",
+			"\n%10s: %20s (%s)\n"+
+				"%10s: %20s (%s)",
 			"Expected", ex.ErrorType().String(), ex.Error(),
 			"Actual", verr.ErrorType().String(), verr.Error(),
 		)
-		return
+		return false
 	}
+	return true
 }
 
-func AssertVErrorIsNil(t *testing.T, actualErr error) {
+func AssertVErrorIsNil(t *testing.T, actualErr error) bool {
 	if actualErr == nil {
-		return
+		return true
 	}
 	verr := verrors.FromError(actualErr)
-	t.Errorf("Expected nil but got %s (%s)", verr.ErrorType().String(), verr.Error())
-	return
+	Fail(
+		t, fmt.Sprintf(
+			`Expected nil but got:
+{type: %s, msg: "%s", internalMsg: "%s"}`,
+			verr.ErrorType().String(), verr.Error(), verr.GetInternalMessage(),
+		),
+	)
+	return false
 }
