@@ -2,6 +2,7 @@
 package verrors_testing
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/vendasta/gosdks/verrors"
@@ -36,8 +37,8 @@ func AssertErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) boo
 	ex := verrors.FromError(expectedErr)
 	if verr.ErrorType() != ex.ErrorType() {
 		t.Errorf(
-			"\n%10s: %20s (%s)\n" +
-			"%10s: %20s (%s)",
+			"\n%10s: %20s (%s)\n"+
+				"%10s: %20s (%s)",
 			"Expected", ex.ErrorType().String(), ex.Error(),
 			"Actual", verr.ErrorType().String(), verr.Error(),
 		)
@@ -52,8 +53,10 @@ func AssertVErrorIsNil(t *testing.T, actualErr error) bool {
 	}
 	verr := verrors.FromError(actualErr)
 	Fail(
-		t, `Expected nil but got:\n%s ["%s", "%s"]`,
-		verr.ErrorType().String(), verr.Error(), verr.GetInternalMessage(),
+		t, fmt.Sprintf(
+			`Expected nil but got:\n%s ["%s", "%s"]`,
+			verr.ErrorType().String(), verr.Error(), verr.GetInternalMessage(),
+		),
 	)
 	return false
 }
