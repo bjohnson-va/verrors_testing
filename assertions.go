@@ -48,6 +48,9 @@ func AssertVErrorIsNil(t *testing.T, actualErr error) {
 		return
 	}
 	verr := verrors.FromError(actualErr)
-	t.Errorf("Expected nil but got %s (%s)", verr.ErrorType().String(), verr.Error())
+	Fail(
+		t, `Expected nil but got:\n%s ["%s", "%s"]`,
+		verr.ErrorType().String(), verr.Error(), verr.GetInternalMessage(),
+	)
 	return
 }
