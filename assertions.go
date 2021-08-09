@@ -9,6 +9,7 @@ import (
 )
 
 func AssertErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualErr error) bool {
+	t.Helper()
 	if actualErr == nil {
 		t.Errorf("Expected %s error but got nil", expectedType.String())
 		return false
@@ -22,6 +23,7 @@ func AssertErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualEr
 }
 
 func AssertErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) bool {
+	t.Helper()
 	if actualErr == nil && expectedErr == nil {
 		return false
 	}
@@ -48,6 +50,7 @@ func AssertErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) boo
 }
 
 func AssertVErrorIsNil(t *testing.T, actualErr error) bool {
+	t.Helper()
 	if actualErr == nil {
 		return true
 	}
