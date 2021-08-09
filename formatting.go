@@ -11,10 +11,12 @@ import (
 
 // TestingT is an interface wrapper around *testing.T
 type TestingT interface {
+	Helper()
 	Errorf(format string, args ...interface{})
 }
 
 func Fail(t TestingT, failureMessage string, msgAndArgs ...interface{}) bool {
+	t.Helper()
 	content := []labeledContent{
 		{"Error", failureMessage},
 	}
@@ -35,8 +37,6 @@ func Fail(t TestingT, failureMessage string, msgAndArgs ...interface{}) bool {
 
 	return false
 }
-
-
 
 func messageFromMsgAndArgs(msgAndArgs ...interface{}) string {
 	if len(msgAndArgs) == 0 || msgAndArgs == nil {

@@ -8,11 +8,12 @@ import (
 )
 
 func InternalMessageContains(t *testing.T, err error, expectedContent string) bool {
+	t.Helper()
 	vErr := verrors.FromError(err)
 	internalMessage := vErr.GetInternalMessage()
 	if !strings.Contains(internalMessage, expectedContent) {
 		t.Errorf(
-			"\n`Expected Internal Message to contain substring"+
+			"\nExpected Internal Message to contain substring"+
 				"\nInternal Message: %s"+
 				"\nSubString: %s",
 			internalMessage, expectedContent,
