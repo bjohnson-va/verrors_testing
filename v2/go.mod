@@ -1,4 +1,4 @@
-module github.com/bjohnson-va/verrors_testing
+module github.com/bjohnson-va/verrors_testing/v2
 
 go 1.20
 
