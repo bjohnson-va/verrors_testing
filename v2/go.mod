@@ -2,10 +2,7 @@ module github.com/bjohnson-va/verrors_testing/v2
 
 go 1.20
 
-require (
-	github.com/bjohnson-va/verrors_testing v1.1.4
-	github.com/vendasta/gosdks/verrors v1.5.0
-)
+require github.com/vendasta/gosdks/verrors v1.5.0
 
 require (
 	github.com/golang/protobuf v1.4.2 // indirect

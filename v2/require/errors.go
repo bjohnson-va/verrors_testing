@@ -3,8 +3,7 @@ package verrors_require
 import (
 	"testing"
 
-	"github.com/bjohnson-va/verrors_testing"
-	verrors_assert "github.com/bjohnson-va/verrors_testing/assert"
+	verrors_assert "github.com/bjohnson-va/verrors_testing/v2/assert"
 	"github.com/vendasta/gosdks/verrors"
 )
 
@@ -17,14 +16,14 @@ func ErrorTypeEqual(t *testing.T, expectedType verrors.ErrorType, actualErr erro
 
 func ErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) {
 	t.Helper()
-	if !verrors_testing.AssertErrorTypesMatch(t, expectedErr, actualErr) {
+	if !verrors_assert.ErrorTypesMatch(t, expectedErr, actualErr) {
 		t.FailNow()
 	}
 }
 
 func NoError(t *testing.T, actualErr error) {
 	t.Helper()
-	if !verrors_testing.AssertVErrorIsNil(t, actualErr) {
+	if !verrors_assert.NoError(t, actualErr) {
 		t.FailNow()
 	}
 }
