@@ -33,7 +33,8 @@ func ErrorTypesMatch(t *testing.T, expectedErr error, actualErr error) bool {
 		return false
 	}
 	if actualErr == nil && expectedErr != nil {
-		t.Errorf("Expected %s error but got nil", expectedErr.Error())
+		ex := verrors.FromError(expectedErr)
+		t.Errorf("Expected %s error of type %s but got nil", ex.Error(), ex.ErrorType())
 		return false
 	}
 	if actualErr != nil && expectedErr == nil {
