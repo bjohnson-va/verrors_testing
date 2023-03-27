@@ -42,8 +42,7 @@ func AssertErrorTypesMatch(
 		return false
 	}
 	if actualErr == nil && expectedErr != nil {
-		ex := verrors.FromError(expectedErr)
-		t.Errorf("Expected %s error of type %s but got nil", ex.Error(), ex.ErrorType())
+		t.Errorf("Expected %s error but got nil", expectedErr.Error())
 		return false
 	}
 	if actualErr != nil && expectedErr == nil {
