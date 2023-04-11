@@ -66,6 +66,7 @@ func FuzzRandomVError(
 	})
 }
 
+// Deprecated: Use FuzzRandomExcept for a better function signature
 func FuzzRandomVErrorExcept(
 	f *testing.F,
 	testFn func(
@@ -73,6 +74,17 @@ func FuzzRandomVErrorExcept(
 		vErrorCase verrors.ServiceError,
 	),
 	except verrors.ErrorType,
+) {
+	FuzzRandomExcept(f, except, testFn)
+}
+
+func FuzzRandomExcept(
+	f *testing.F,
+	except verrors.ErrorType,
+	testFn func(
+		t *testing.T,
+		vErrorCase verrors.ServiceError,
+	),
 ) {
 	errors := []verrors.ErrorType{
 		verrors.NotFound,
