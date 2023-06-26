@@ -118,3 +118,46 @@ func FuzzRandomExcept(
 		testFn(t, err)
 	})
 }
+
+func FuzzRandomExceptMulti(
+	f *testing.F,
+	exceptMulti []verrors.ErrorType,
+	testFn func(
+		t *testing.T,
+		vErrorCase verrors.ServiceError,
+	),
+) {
+	errors := []verrors.ErrorType{
+		verrors.NotFound,
+		verrors.InvalidArgument,
+		verrors.AlreadyExists,
+		verrors.PermissionDenied,
+		verrors.Unauthenticated,
+		verrors.Unimplemented,
+		verrors.Unknown,
+		verrors.Internal,
+		verrors.Gone,
+		verrors.Unavailable,
+		verrors.FailedPrecondition,
+		verrors.DeadlineExceeded,
+		verrors.ResourceExhausted,
+		verrors.Aborted,
+		verrors.Canceled,
+		verrors.BadGateway,
+	}
+	for _, vr := range errors {
+		for _, e := range exceptMulti {
+			if vr == e {
+				continue
+			}
+		}
+		f.Add(int(vr))
+	}
+	f.Fuzz(func(
+		t *testing.T,
+		errCode int,
+	) {
+		err := verrors.New(verrors.ErrorType(errCode), "error defined in fuzz test setup [verrors_testing]")
+		testFn(t, err)
+	})
+}
