@@ -148,7 +148,7 @@ func FuzzRandomExceptMulti(
 	for _, vr := range errors {
 		for _, e := range exceptMulti {
 			if vr == e {
-				continue
+				break
 			}
 		}
 		f.Add(int(vr))
