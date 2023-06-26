@@ -145,10 +145,11 @@ func FuzzRandomExceptMulti(
 		verrors.Canceled,
 		verrors.BadGateway,
 	}
+Outer:
 	for _, vr := range errors {
 		for _, e := range exceptMulti {
 			if vr == e {
-				break
+				continue Outer
 			}
 		}
 		f.Add(int(vr))
